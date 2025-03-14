@@ -1,10 +1,8 @@
 using System.Collections.Generic;
-using System.Xml;
 using Code.Enums;
 using Code.Managers;
 using Code.ScriptableObjects;
 using ScriptableObjects.Gameplay;
-using UnityEngine;
 
 namespace Code.Player
 {
@@ -31,7 +29,6 @@ namespace Code.Player
                 }
                 
                 AddItem(itemData);
-                //Debug.LogError(JsonConvert.SerializeObject(_resourcesAndCraftedData, Formatting.Indented));
             }
         }
         

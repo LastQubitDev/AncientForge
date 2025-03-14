@@ -3,6 +3,10 @@ using Code.Enums;
 using ScriptableObjects.Gameplay;
 using UnityEngine;
 
+#if UNITY_EDITOR
+using UnityEditor;
+#endif
+
 namespace Code.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "NewItem", menuName = "ScriptableObjects/Gameplay/ItemData")]
@@ -15,18 +19,23 @@ namespace Code.ScriptableObjects
         [SerializeField] private string itemNameKey = string.Empty;
         [SerializeField] private string descriptionKey = string.Empty;
 
-        private ItemKey _itemKey;
+        [Header("Auto generated")]
+        [SerializeField] private ItemKey itemKey;
         
-        public ItemKey ItemKey => _itemKey;
+        public ItemKey ItemKey => itemKey;
         public string RawItemKey => rawItemKey;
         public ItemType ItemType => itemType;
         
         public string ItemNameKey => itemNameKey;
         public string DescriptionKey => descriptionKey;
 
-        public void SetItemEnumKey(string itemEnumKey)
+        public void SetItemEnumKey(string itemKeyString)
         {
-            Enum.TryParse(itemEnumKey, out _itemKey);
+            Enum.TryParse(itemKeyString, out itemKey);
+            
+            #if UNITY_EDITOR
+                EditorUtility.SetDirty(this);
+            #endif
         }
     }
 

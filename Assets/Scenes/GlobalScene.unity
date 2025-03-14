@@ -197,6 +197,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   infoLogsEnabled: 1
   warningLogsEnabled: 1
+  errorLogsEnabled: 1
 --- !u!4 &1516263589
 Transform:
   m_ObjectHideFlags: 0
