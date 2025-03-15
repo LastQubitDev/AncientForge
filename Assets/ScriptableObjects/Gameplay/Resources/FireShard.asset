@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FireShard
   m_EditorClassIdentifier: 
   rawItemKey: fire_shard
-  itemType: 0
+  itemType: 1
+  itemIcon: {fileID: -548897134188906539, guid: ed7331958d1e211409888d26496790c9, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 2

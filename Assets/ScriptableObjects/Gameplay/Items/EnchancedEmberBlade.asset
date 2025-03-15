@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: EnchancedEmberBlade
   m_EditorClassIdentifier: 
   rawItemKey: enchanced_ember_blade
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: -6392669640846280154, guid: 0c36a38eb4ee08546ae8ee536df61506, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 8

@@ -1,6 +1,7 @@
 using Code.ScriptableObjects;
 using Code.StateMachine;
 using Code.StateMachine.GameStates;
+using Code.UI;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.Serialization;
@@ -13,12 +14,13 @@ namespace Code.Managers
 
         [SerializeField] private GameDataSO gameDataSO = null;
         [SerializeField] private CustomLogger customLogger = null;
-        
+
         private GameStateMachine _gameStateMachine = null;
         private Player.Player _player = null;
 
         public GameDataSO GameDataSo => gameDataSO;
         public CustomLogger CustomLogger => customLogger;
+
         public Player.Player Player => _player;
 
         private void Awake()
@@ -39,7 +41,7 @@ namespace Code.Managers
             _player = new Player.Player();
             _gameStateMachine = new GameStateMachine();
             
-            _gameStateMachine.ChangeState(new GlobalInitializationState(this, onEnterFinished: _gameStateMachine.InitGame));
+            _gameStateMachine.ChangeState(new GlobalInitializationState(onEnterFinished: _gameStateMachine.InitGameLaunch));
         }
 
         private void LoadGame()

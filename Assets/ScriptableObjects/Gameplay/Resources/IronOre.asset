@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: IronOre
   m_EditorClassIdentifier: 
   rawItemKey: iron_ore
-  itemType: 0
+  itemType: 1
+  itemIcon: {fileID: -3730300019221377472, guid: ffa5dac8b8bb3d847ab239278d9b7341, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 4

@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DraconicCrown
   m_EditorClassIdentifier: 
   rawItemKey: draconic_crown
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: -6912034311097347541, guid: d340b5e82dcf0d342803ef6ffe65f0ba, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 5

@@ -4,7 +4,7 @@ namespace Code.Player
 {
     public class Player
     {
-        public Inventory Inventory { get; private set; } = new();
+        public Inventory Inventory { get; } = new();
 
         public void Initialize(AllItemsSO allItemsSO)
         {

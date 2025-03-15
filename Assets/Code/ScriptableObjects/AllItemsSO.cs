@@ -22,12 +22,14 @@ namespace Code.ScriptableObjects
         [SerializeField] private ItemData[] craftedItems = null;
 
         private readonly HashSet<ItemKey> _validItemEnumKeys = new();
+        private readonly Dictionary<ItemKey, Sprite> _itemKeyIcons = new();
         private const string ItemKeysEnumName = "ItemKey";
 
         public void Initialize()
         {
             _validItemEnumKeys.Clear();
-
+            _itemKeyIcons.Clear();
+            
             for (int i = 0; i < resources.Length; i++)
             {
                 InitializeItemData(resources[i]);
@@ -42,23 +44,35 @@ namespace Code.ScriptableObjects
         private void InitializeItemData(ItemData itemData)
         {
             _validItemEnumKeys.Add(itemData.ItemKey);
+            _itemKeyIcons.Add(itemData.ItemKey, itemData.ItemIcon);
         }
         
-        public ItemDataReward[] GetInitialInventory()
+        public ItemPackData[] GetInitialInventory()
         {
             return new[]
             {
-                new ItemDataReward(ItemKey.IronOre, ItemType.Resource, Random.Range(3,6)),
-                new ItemDataReward(ItemKey.GoldOre, ItemType.Resource, Random.Range(1,4)),
-                new ItemDataReward(ItemKey.FireShard, ItemType.Resource, Random.Range(0,3)),
-                new ItemDataReward(ItemKey.EmberDust, ItemType.Resource, Random.Range(0,3)),
-                new ItemDataReward(ItemKey.DragonScale, ItemType.Resource, Random.Range(0,2))
+                new ItemPackData(ItemKey.IronOre, ItemType.Resource, Random.Range(3,6)),
+                new ItemPackData(ItemKey.GoldOre, ItemType.Resource, Random.Range(1,4)),
+                new ItemPackData(ItemKey.FireShard, ItemType.Resource, Random.Range(0,3)),
+                new ItemPackData(ItemKey.EmberDust, ItemType.Resource, Random.Range(0,3)),
+                new ItemPackData(ItemKey.DragonScale, ItemType.Resource, Random.Range(0,2))
             };
         }
 
         public bool IsValidItem(ItemKey itemEnumKey)
         {
             return _validItemEnumKeys.Contains(itemEnumKey);
+        }
+
+        public Sprite GetItemKeySprite(ItemKey itemKey)
+        {
+            if (!_itemKeyIcons.ContainsKey(itemKey))
+            {
+                GameManager.Get.CustomLogger.LogError($"Missing item icon for itemKey {itemKey}");
+                return null;
+            }
+            
+            return _itemKeyIcons[itemKey];
         }
 
 #if UNITY_EDITOR

@@ -3,22 +3,26 @@ using Code.Enums;
 using Code.Managers;
 using Code.ScriptableObjects;
 using ScriptableObjects.Gameplay;
+using UnityEngine;
+using UnityEngine.Events;
 
 namespace Code.Player
 {
     public class Inventory
     {
-        private readonly Dictionary<ItemType, Dictionary<ItemKey, int>> _resourcesAndCraftedData = new();
+        private readonly Dictionary<ItemType, Dictionary<ItemKey, int>> _itemsData = new();
         private AllItemsSO AllItemsSO { get; set; } = null;
 
+        public UnityAction<ItemPackData[]> OnInventoryChanged = null;
+        
         public void SetAllItemsSO(AllItemsSO allItemsSO)
         {
             AllItemsSO = allItemsSO;
         }
         
-        public void SetInitInventory(ItemDataReward[] initialInventory)
+        public void SetInitInventory(ItemPackData[] initialInventoryPack)
         {
-            foreach (var itemData in initialInventory)
+            foreach (var itemData in initialInventoryPack)
             {
                 if (!AllItemsSO.IsValidItem(itemData.ItemKey))
                 {
@@ -28,33 +32,87 @@ namespace Code.Player
                     continue;
                 }
                 
-                AddItem(itemData);
+                AddItem(itemData, notifyInventoryChanged: false);
+                OnInventoryChanged?.Invoke(initialInventoryPack);
             }
+        }
+
+        public void TriggerAllInventoryRefresh()
+        {
+            List<ItemPackData> allPacks = new List<ItemPackData>();
+            
+            foreach (KeyValuePair<ItemType, Dictionary<ItemKey, int>> typePair in _itemsData)
+            {
+                foreach (var itemKeyPair in typePair.Value)
+                {
+                    allPacks.Add(new ItemPackData(itemKeyPair.Key, typePair.Key, itemKeyPair.Value));
+                }
+            }
+            
+            OnInventoryChanged?.Invoke(allPacks.ToArray());
         }
         
-        public void AddItem(ItemDataReward item)
+        public void AddItem(ItemPackData itemPack, bool notifyInventoryChanged = true)
         {
-            PrepareItemDataSupport(item);
-            _resourcesAndCraftedData[item.ItemType][item.ItemKey] += item.Count;
+            if (itemPack.Count == 0)
+            {
+                GameManager.Get.CustomLogger.LogWarning
+                (
+                    $"Attempted to add 0 of {itemPack.ItemKey}, skipping operation",
+                    CustomLogger.LogType.Inventory
+                );
+                
+                return;
+            }
+            
+            PrepareItemDataSupport(itemPack);
+            _itemsData[itemPack.ItemType][itemPack.ItemKey] += itemPack.Count;
+
+            if (notifyInventoryChanged)
+            {
+                OnInventoryChanged?.Invoke(new []{itemPack});
+            }
         }
 
-        private void PrepareItemDataSupport(ItemDataReward item)
+        private void PrepareItemDataSupport(ItemPackData itemPack)
         {
-            if (!_resourcesAndCraftedData.ContainsKey(item.ItemType))
+            if (!_itemsData.ContainsKey(itemPack.ItemType))
             {
-                _resourcesAndCraftedData.Add(item.ItemType, new Dictionary<ItemKey, int>());
+                _itemsData.Add(itemPack.ItemType, new Dictionary<ItemKey, int>());
             }
 
-            if (!_resourcesAndCraftedData[item.ItemType].ContainsKey(item.ItemKey))
+            if (!_itemsData[itemPack.ItemType].ContainsKey(itemPack.ItemKey))
             {
-                _resourcesAndCraftedData[item.ItemType][item.ItemKey] = 0;
+                _itemsData[itemPack.ItemType][itemPack.ItemKey] = 0;
             }
         }
 
-        public void RemoveItem(int itemId)
+        public void RemoveItem(ItemPackData itemPack)
         {
-            //items.RemoveAll(item => item.Id == itemId);
-            //Console.WriteLine($"Removed item with ID: {itemId}");
+            if (!_itemsData.ContainsKey(itemPack.ItemType) || !_itemsData[itemPack.ItemType].ContainsKey(itemPack.ItemKey))
+            {
+                GameManager.Get.CustomLogger.LogError
+                (
+                    $"Trying to remove invalid resources for item pack {itemPack.ItemType} - {itemPack.ItemKey}", 
+                    CustomLogger.LogType.Inventory
+                );
+                
+                return;
+            }
+
+            if (itemPack.Count > _itemsData[itemPack.ItemType][itemPack.ItemKey])
+            {
+                GameManager.Get.CustomLogger.LogError
+                (
+                    $"Tried to remove too many resources of {itemPack.ItemKey}, count requested {itemPack.Count}", 
+                    CustomLogger.LogType.Inventory
+                );
+            }
+
+            int resValue = _itemsData[itemPack.ItemType][itemPack.ItemKey];
+            _itemsData[itemPack.ItemType][itemPack.ItemKey] = Mathf.Clamp(resValue - itemPack.Count, 0, int.MaxValue);
+            
+            OnInventoryChanged?.Invoke(new []{itemPack});
         }
     }
 }

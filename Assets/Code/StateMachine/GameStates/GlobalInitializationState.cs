@@ -1,5 +1,4 @@
 using Code.Managers;
-using UnityEngine;
 using UnityEngine.Events;
 
 namespace Code.StateMachine.GameStates
@@ -8,9 +7,9 @@ namespace Code.StateMachine.GameStates
     {
         private readonly GameManager _gameManager = null;
         
-        public GlobalInitializationState(GameManager gameManager, UnityAction onEnterFinished = null, UnityAction onExitFinished = null) : base(onEnterFinished, onExitFinished)
+        public GlobalInitializationState(UnityAction onEnterFinished = null, UnityAction onExitFinished = null) : base(onEnterFinished, onExitFinished)
         {
-            _gameManager = gameManager;
+            _gameManager = GameManager.Get;
             GameManager.Get.CustomLogger.Log($"Constructed {this}", CustomLogger.LogType.StateLog);
         }
         

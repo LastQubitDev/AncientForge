@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DraconicShield
   m_EditorClassIdentifier: 
   rawItemKey: draconic_shield
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: -377743892748869521, guid: 494df02d0a29e1b48bc3c990aaf97424, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 6

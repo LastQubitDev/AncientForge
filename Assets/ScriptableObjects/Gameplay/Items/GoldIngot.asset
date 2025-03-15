@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: GoldIngot
   m_EditorClassIdentifier: 
   rawItemKey: gold_ingot
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: -1901478491050425486, guid: 4538a005977219e4ca87977804fa82f5, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 10

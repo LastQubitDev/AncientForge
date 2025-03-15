@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: EmberBlade
   m_EditorClassIdentifier: 
   rawItemKey: ember_blade
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: 3238581760505091059, guid: 2aeb7edca5f927c41b3b20ad47a19686, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 7

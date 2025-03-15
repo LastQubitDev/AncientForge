@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: DragonScale
   m_EditorClassIdentifier: 
   rawItemKey: dragon_scale
-  itemType: 0
+  itemType: 1
+  itemIcon: {fileID: -6937432253727333979, guid: ef556e4a8f046364ea42204314599fb4, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 0

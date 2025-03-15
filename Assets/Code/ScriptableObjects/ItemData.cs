@@ -14,6 +14,7 @@ namespace Code.ScriptableObjects
     {
         [SerializeField] private string rawItemKey = string.Empty;
         [SerializeField] private ItemType itemType = ItemType.Resource;
+        [SerializeField] private Sprite itemIcon = null; //In ideal world this would be eg. an addressable reference for on-demand loading
     
         [Header("Translation keys")]
         [SerializeField] private string itemNameKey = string.Empty;
@@ -25,7 +26,8 @@ namespace Code.ScriptableObjects
         public ItemKey ItemKey => itemKey;
         public string RawItemKey => rawItemKey;
         public ItemType ItemType => itemType;
-        
+        public Sprite ItemIcon => itemIcon;
+
         public string ItemNameKey => itemNameKey;
         public string DescriptionKey => descriptionKey;
 
@@ -39,13 +41,13 @@ namespace Code.ScriptableObjects
         }
     }
 
-    public struct ItemDataReward
+    public struct ItemPackData
     {
-        public ItemKey ItemKey;
-        public ItemType ItemType;
-        public int Count;
+        public readonly ItemKey ItemKey;
+        public readonly ItemType ItemType;
+        public readonly int Count;
 
-        public ItemDataReward(ItemKey itemKey, ItemType itemType, int count)
+        public ItemPackData(ItemKey itemKey, ItemType itemType, int count)
         {
             ItemKey = itemKey;
             ItemType = itemType;

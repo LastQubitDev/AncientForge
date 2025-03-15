@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: FlameGoldIngot
   m_EditorClassIdentifier: 
   rawItemKey: flame_gold_ingot
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: -3704680007146324067, guid: 10eb540ab56442f49af9be975af7d47c, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 11

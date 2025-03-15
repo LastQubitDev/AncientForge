@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: RadiantStaff
   m_EditorClassIdentifier: 
   rawItemKey: radiant_staff
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: 6927841775874001932, guid: ac4538f57226d9e429b7ab45d40f1bfd, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 13

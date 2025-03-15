@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: SteelIngot
   m_EditorClassIdentifier: 
   rawItemKey: steel_ingot
-  itemType: 1
+  itemType: 2
+  itemIcon: {fileID: -3651005545543592653, guid: 3598402013195f845bd4a3fb8990823c, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 14

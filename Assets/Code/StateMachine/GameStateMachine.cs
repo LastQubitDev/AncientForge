@@ -7,11 +7,13 @@ namespace Code.StateMachine
     {
         private IGameState _currentState;
         
-        public readonly UnityAction InitGame = null;
+        public readonly UnityAction InitGameLaunch = null;
+        public readonly UnityAction StartGame = null;
 
         public GameStateMachine()
         {
-            InitGame = () => ChangeState(new GameLaunchState());
+            InitGameLaunch = () => ChangeState(new GameLaunchState());
+            StartGame = () => ChangeState(new GameState());
         }
         
         public void ChangeState(IGameState newState)

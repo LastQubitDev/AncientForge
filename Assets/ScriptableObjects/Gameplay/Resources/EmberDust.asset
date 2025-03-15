@@ -13,7 +13,8 @@ MonoBehaviour:
   m_Name: EmberDust
   m_EditorClassIdentifier: 
   rawItemKey: ember_dust
-  itemType: 0
+  itemType: 1
+  itemIcon: {fileID: 1826325255024969066, guid: 16d9a50ab4a89d649aa69071a9483e81, type: 3}
   itemNameKey: 
   descriptionKey: 
   itemKey: 1

@@ -2,7 +2,8 @@ namespace Code.Enums
 {
     public enum ItemType
     {
-        Resource = 0,
-        Crafted = 1
+        None = 0,
+        Resource = 1,
+        Crafted = 2,
     }
 }
